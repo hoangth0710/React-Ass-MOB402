@@ -1,35 +1,25 @@
-import {Button, FlatList, StatusBar, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, FlatList, Image, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {useState} from "react";
+
+
 
 
 export default function App() {
     const [data, setData] = useState([]);
-    const [name, setName] = useState();
-    const [age, setAge] = useState();
-    const [address, setAddress] = useState();
+    const [tenAnh, setName] = useState();
+    const [ndAnh, setAge] = useState();
+    const [linkAnh, setAddress] = useState();
+    console.log(data);
 
     return (
         <View style={styles.container}>
-
-            <TextInput style={{ height : 40,width : 100}} placeholder={'Enter name'} onChangeText={(data) => {
-                setName(data)
-            }}/>
-            <TextInput style={{ height : 40,width : 100}} placeholder={'Enter age'} onChangeText={(data) => {
-                setAge(data)
-            }}/>
-            <TextInput style={{ height : 40,width : 100}} placeholder={'Enter address'} onChangeText={(data) => {
-                setAddress(data)
-            }}/>
-            <Button title={'Save Student'} onPress={()=>{
-                // khoi tao http post len server
-                // bao thanh cong va cap nhat len Flatlist
-            }} />
-
             <FlatList style={{flex: 1}} data={data} renderItem={({item}) => {
                 return (<View>
-                    <Text>{item.name}</Text>
-                    <Text>{item.age}</Text>
-                    <Text>{item.address}</Text>
+                    <Text>{item.tenAnh}</Text>
+                    <Text>{item.ndAnh}</Text>
+                    <Text>{item.linkAnh}</Text>
+                    <Image source={{uri : item.linkAnh}}
+                           style={{width: 400, height: 400}} />
                     <Text>===============================</Text>
                 </View>);
             }}/>
@@ -37,9 +27,9 @@ export default function App() {
                 // viet request toi website tai day
                 var requestOptions = {
                     method: 'GET',
-                    redirect: 'follow'
+                    redirect: 'manual'
                 };
-                fetch("https://demobuoi4.herokuapp.com/getUsers", requestOptions)
+                fetch("https://demobuoi4.herokuapp.com/allMobile", requestOptions)
                     .then(response => response.json())
                     .then(result => setData(result))
                     .catch(error => setData(error.message));
@@ -56,3 +46,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
